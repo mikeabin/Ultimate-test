@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Shop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/shop.css">
+    <script src="js/script.js" defer></script>
+    <script src="js/shop.js" defer></script>
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="images/favicon/site.webmanifest">
+
+    <!-- tab bar color -->
+    <meta name="theme-color" id="theme-color-meta" content="#1b5cd5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" id="apple-status-bar-style" content="default">
+</head>
+<body>
+<header>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="quest.html">Quest</a>
+    <a href="over-ons.html">Over Ons</a>
+</header>
+<main>
+<h1>🎮 Game Shop</h1>
+<p>Jouw punten: <span id="puntenTeller">...</span></p>
+<section class="products">
+<div class="product">
+    <img src="images/ts2.jpeg" alt="Transport fever 2" class="product-image">
+    <h2>Transport fever 2 (pc only)</h2>
+    <p>Kost: 300 punten</p>
+    <button onclick="koopGame('Transport fever 2', 300, 'https://quest-for-today.web.app/games/tsf2.html')">Koop</button>
+</div>
+
+<div class="product">
+    <img src="images/bds.png" alt="Bus Driver Simulator" class="product-image">
+    <h2>Bus Driver Simulator (pc only)</h2>
+    <p>Kost: 500 punten</p>
+    <button onclick="koopGame('Bus Driver Simulator', 500, 'https://quest-for-today.web.app/games/bds.html')">Koop</button>
+</div>
+</section>
+<p>Wil je nog een game in de shop die er nog niet staat? Stem dan <a href="#een google docs document">hier</a> op je favorite game!</p>
+</main>
+<footer>
+    <p>&copy; <span id="datefooter"></span> Quest for Today. Alle rechten voorbehouden.</p>
+</footer>
+</body>
+</html>
