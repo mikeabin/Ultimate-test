@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Quest for Today</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Leaderboard - Quest for Today</h1>
+            <a href="index.html" class="home-btn">← Terug naar Home</a>
+        </div>
+
+        <!-- Leaderboard Content -->
+        <div id="leaderboard-content" class="admin-panel">
+            <h2>Top Spelers</h2>
+            <div id="error" class="message error" style="display: none;"></div>
+            <div id="users-container">
+                <!-- Users will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="datefooter"></span> Quest for Today. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <script>
+        // Footer jaartal
+        document.getElementById('datefooter').textContent = new Date().getFullYear();
+
+        // Laden van leaderboard
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLeaderboard();
+        });
+
+        async function loadLeaderboard() {
+            try {
+                const response = await fetch('/api/users'); // Publieke endpoint zonder auth
+
+                if (!response.ok) throw new Error('Kon leaderboard niet laden');
+
+                const users = await response.json();
+                displayUsers(users);
+            } catch (error) {
+                console.error(error);
+                showError('Fout bij laden van leaderboard');
+            }
+        }
+
+        function displayUsers(users) {
+            const container = document.getElementById('users-container');
+
+            if (users.length === 0) {
+                container.innerHTML = '<p>Geen spelers gevonden.</p>';
+                return;
+            }
+
+            // Sorteer op punten aflopend
+            users.sort((a, b) => b.punten - a.punten);
+
+            const table = document.createElement('table');
+            table.className = 'users-table';
+
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Punten</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${users.map(user => `
+                        <tr>
+                            <td>${user.naam}</td>
+                            <td>${user.punten.toLocaleString()}</td>
+                        </tr>`).join('')}
+                </tbody>
+            `;
+
+            container.innerHTML = '';
+            container.appendChild(table);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => errorDiv.style.display = 'none', 5000);
+        }
+    </script>
+</body>
+</html>
